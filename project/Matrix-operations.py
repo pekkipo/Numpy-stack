@@ -2,6 +2,8 @@
 # if A is of size (2,3) and B is of size (3,3)
 # Can do AB (inner dim is 3), Cannot do BA (inner dim is 3/2)
 
+# The file includes info in EIGENVECTORS and EIGENVALUES
+
 # IMPORTANT
 # in Numpy * means element by element multiplication
 # dot means matrices multiplication
@@ -42,4 +44,25 @@ np.diag(A).sum()  # gives 5
 # or
 np.trace(A)
 
-# Eigen
+# Eigenvalues and eigenvectors
+X = np.random.randn(100, 3)
+# Convention: Sample takes up a row, columns - features. So 100 samples, 3 features
+# Covariance m-x
+cov = np.cov(X)
+print(cov.shape)  # shows the shape of the covariance matrix
+
+# Shows 100 by 100. This is wrong. Our cov matrix should be 3 by 3
+# Solve using transposing
+cov = np.cov(X.T)
+print(cov)  # now 3 by 3 as expected
+# TRANSPOSE FOR THE CALCULATION THE COVARIANCE MATRIX
+
+# tow funcs two calculate eigenvectors and eigenvalues
+# np.linalg.eig(A)
+# or
+# np.lingalg.eigh(A)  # for symmetric and Hermittian matrices only!
+# symmetric: A = A_transposed    hermittian: A = A_h. A_h is a conjugate transpose of A
+
+# Covariance is symmetric, so we can use eigh
+print(np.linalg.eigh(cov))  # gives a tuple. First tuple contains three eigenvalues. Second tuple gives 3 eigenvectores stored in columns
+print(np.linalg.eig(cov))
