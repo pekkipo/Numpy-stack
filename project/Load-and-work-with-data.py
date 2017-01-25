@@ -74,9 +74,43 @@ print(df["passengers"])
 
 # Alternative method when column names are strings
 print(df.passengers)
-# Wouldnt have worked if column name contains spaces
+# Wouldn't have worked if column name contains spaces
 
 # ADDING A COLUMN
 df['ones'] = 1  # adds new column named ones and each row contains 1
 
 print(df.head())
+
+
+# The apply function
+# We want to assign a new column value where each cell is derived from the values already in its row
+# Example: Model interaction between X1 and X2 -> X1*X2
+# df['x1x2'] = df.apply(lambda row: row['x1']*row['x2'], axis=1)
+# Recall: lambda would be the same as
+# def get_interactions(row):
+#     return row['x1']*row['x2']
+# df['x1x2'] = df.apply(get_interaction, axis=1)
+
+# Apply for our Airiline case
+from datetime import datetime
+datetime.strptime("1949-05", "%Y-%m")
+
+df['dt'] = df.apply(lambda row: datetime.strptime(row['month'], "%Y-%m"), axis=1)
+df.info()
+# datetime column (dt) contains datetime objects now
+
+# JOINS (as in SQL)
+# have two tables
+
+t1 = pd.read_csv("resource/table1.csv")
+t2 = pd.read_csv("resource/table2.csv")
+
+m = pd.merge(t1, t2, on='user_id')
+# On specifies the column based on which we merge
+print(m)
+
+m1 = pd.merge(t1, t2)
+print(m1)
+# Different syntax
+t1.merge(t2, on='user_id')
+

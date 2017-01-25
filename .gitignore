@@ -1,0 +1,5 @@
+*.DS_Store
+large_files
+large_files/*
+project/large_files
+project/large_files/*
